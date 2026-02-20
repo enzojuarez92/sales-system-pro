@@ -28,14 +28,14 @@ class CategoryController extends Controller
     }
 
     public function store(CategoryRequest $request){
-        $dto = CategoryDTO::fromRequest($request->validate());
+        $dto = CategoryDTO::fromRequest($request->validated());
         $category = $this->categoryService->createCategory($dto);
 
         return response($category, 201);
     }
 
     public function update(CategoryRequest $request, Category $category){
-        $dto = CategoryDTO::fromRequest($request->validate($request));
+        $dto = CategoryDTO::fromRequest($request->validated());
         $category = $this->categoryService->updateCategory($category->id, $dto);
 
         return response()->json($category,201);

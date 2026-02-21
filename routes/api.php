@@ -12,7 +12,7 @@ Route::post('/login', [AuthController::class, 'login']);
 
 //Ruta Protegidas por Authentication
 Route::middleware('auth:sanctum')->group(function () {
-    
+
     Route::middleware('can:manage taxes')->group(function () {
         Route::post('/taxes', [TaxController::class, 'store']);
         Route::put('/taxes/{tax}', [TaxController::class, 'update']);

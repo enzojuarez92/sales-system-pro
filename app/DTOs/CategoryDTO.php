@@ -13,7 +13,7 @@ readonly class CategoryDTO
     {
         return new self(
             $name = $data['name'],
-            $description = (float) $data['description']
+            $description = (string) $data['description']
         );
     }
 }

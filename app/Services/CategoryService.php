@@ -27,14 +27,22 @@ class CategoryService
     {
         return $this->repository->create([
             'name' => $dto->name,
-            'description' => $dto->description
+            'description' => $dto->description,
+            'parent_id' => $dto->parent_id
         ]);
     }
 
     public function updateCategory(int $id, CategoryDTO $dto): Category
-    {        return $this->repository->update($id, [
+    {
+        return $this->repository->update($id, [
             'name' => $dto->name,
-            'description' => $dto->description
+            'description' => $dto->description,
+            'parent_id' => $dto->parent_id
         ]);
+    }
+
+    public function deleteCategory(int $id): bool
+    {
+        return $this->repository->delete($id);
     }
 }

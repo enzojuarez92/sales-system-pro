@@ -23,12 +23,13 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         $category = $this->route('category');
-        
+
         $categoryId = $category?->id;
 
         return [
             'name' => ['required','max:50',Rule::unique('categories','name')->ignore($categoryId)],
-            'description' => 'required|max:255'
+            'description' => 'required|max:255',
+            'parent_id' => 'nullable|exists:categories,id',
         ];
     }
 }

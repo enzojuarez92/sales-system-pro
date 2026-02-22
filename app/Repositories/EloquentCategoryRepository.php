@@ -10,12 +10,14 @@ class EloquentCategoryRepository implements CategoryRepositoryInterface
 {
     public function getAll(): Collection
     {
-        return Category::all();
+        return Category::whereNull('parent_id')
+            ->with('children')
+            ->get();
     }
 
     public function findById(int $id): Category
     {
-        return Category::findOrFail($id);
+        return Category::with('children')->findOrFail($id);
     }
 
     public function create(array $data): Category
@@ -28,5 +30,11 @@ class EloquentCategoryRepository implements CategoryRepositoryInterface
         $category = Category::findOrFail($id);
         $category->update($data);
         return $category;
+    }
+
+    public function delete(int $id): bool
+    {
+        $category = Category::findOrFail($id);
+        return $category->delete();
     }
 }

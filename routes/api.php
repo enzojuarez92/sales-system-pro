@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CashSessionController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\InventoryMovementController;
@@ -15,9 +16,14 @@ use Illuminate\Support\Facades\Route;
 //Ruta Login
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/cash-sessions/open', [CashSessionController::class, 'open']);
+    Route::post('/cash-sessions/close', [CashSessionController::class, 'close']);
+    Route::get('/cash-sessions/status', [CashSessionController::class, 'status']);
+});
 
 //Ruta Protegidas por Authentication
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum','check.cash'])->group(function () {
 
     Route::middleware('can:manage taxes')->group(function () {
         Route::post('/taxes', [TaxController::class, 'store']);

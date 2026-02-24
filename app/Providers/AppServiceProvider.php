@@ -15,7 +15,11 @@ class AppServiceProvider extends ServiceProvider
             \App\Contracts\TaxRepositoryInterface::class => \App\Repositories\EloquentTaxRepository::class,
             \App\Contracts\CategoryRepositoryInterface::class => \App\Repositories\EloquentCategoryRepository::class,
             \App\Contracts\ProductRepositoryInterface::class => \App\Repositories\EloquentProductRepository::class,
-            \App\Contracts\TaxConditionRepositoryInterface::class => \App\Repositories\EloquentTaxConditionRepository::class
+            \App\Contracts\TaxConditionRepositoryInterface::class => \App\Repositories\EloquentTaxConditionRepository::class,
+            \App\Contracts\ContactRepositoryInterface::class => \App\Repositories\EloquentContactRepository::class,
+            \App\Contracts\InventoryMovementRepositoryInterface::class => \App\Repositories\EloquentInventoryMovementRepository::class,
+            \App\Contracts\PurchaseRepositoryInterface::class => \App\Repositories\EloquentPurchaseRepository::class,
+            \App\Contracts\PurchaseItemRepositoryInterface::class => \App\Repositories\EloquentPurchaseItemRepository::class,
         ];
 
         foreach ($bindings as $interface => $repository) {

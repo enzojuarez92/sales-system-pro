@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\TaxCondition;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,11 +17,16 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $user = User::factory()->create([
+            'name' => 'Admin',
+            'email' => 'super@admin.com',
+            'username' => 'superadmin',
+            'password' => Hash::make('admin')
+        ]);
+
+        $user->assignRole('admin');
 
         $this->call(RoleSeeder::class);
+        $this->call(TaxConditionSeeder::class);
     }
 }

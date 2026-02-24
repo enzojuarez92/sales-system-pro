@@ -20,6 +20,8 @@ class AppServiceProvider extends ServiceProvider
             \App\Contracts\InventoryMovementRepositoryInterface::class => \App\Repositories\EloquentInventoryMovementRepository::class,
             \App\Contracts\PurchaseRepositoryInterface::class => \App\Repositories\EloquentPurchaseRepository::class,
             \App\Contracts\PurchaseItemRepositoryInterface::class => \App\Repositories\EloquentPurchaseItemRepository::class,
+            \App\Contracts\InvoiceRepositoryInterface::class => \App\Repositories\EloquentInvoiceRepository::class,
+            \App\Contracts\PaymentRepositoryInterface::class => \App\Repositories\EloquentPaymentRepository::class,
         ];
 
         foreach ($bindings as $interface => $repository) {

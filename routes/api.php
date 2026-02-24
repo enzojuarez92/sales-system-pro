@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\InventoryMovementController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\TaxConditionController;
@@ -74,6 +75,16 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/purchases', [PurchaseController::class, 'index']);
     Route::get('/purchases/{purchase}', [PurchaseController::class, 'show']);
+
+    Route::middleware('can:manage categories')->group(function () {
+        Route::post('/invoices/{invoice}/cancel', [InvoiceController::class, 'cancel']);
+        Route::post('/invoices', [InvoiceController::class, 'store']);
+        Route::put('/invoices/{invoice}', [InvoiceController::class, 'update']);
+        Route::delete('/invoices/{invoice}', [InvoiceController::class, 'delete']);
+    });
+
+    Route::get('/invoices', [InvoiceController::class, 'index']);
+    Route::get('/invoices/{invoice}', [InvoiceController::class, 'show']);
 
     Route::post('/inventory/movements', [InventoryMovementController::class, 'store']);
 });

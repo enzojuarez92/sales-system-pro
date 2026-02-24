@@ -15,18 +15,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        $user = User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'super@admin.com',
-            'username' => 'superadmin',
-            'password' => Hash::make('admin')
-        ]);
-
-        $user->assignRole('admin');
 
         $this->call(RoleSeeder::class);
         $this->call(TaxConditionSeeder::class);
+        $this->call(BankAccountSeeder::class);
+        $this->call(PaymentMethodSeeder::class);
+        
+        $user = new User();
+        $user->name = 'Admin';
+        $user->email = 'super@admin.com';
+        $user->username = 'superadmin';
+        $user->password = Hash::make('admin');
+        $user->save();
+        $user->assignRole('admin');
+
     }
 }

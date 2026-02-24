@@ -18,7 +18,15 @@ class InventoryMovementService
         return DB::transaction(function () use ($dto) {
             $product = Product::lockForUpdate()->findOrFail($dto->product_id);
 
-            $stockBefore = $product->stock; 
+            // VALIDACIÓN CRÍTICA DE STOCK
+            if ($dto->quantity < 0) { 
+                $requestedQuantity = abs($dto->quantity);
+                if ($product->stock < $requestedQuantity) {
+                    throw new \Exception("Stock insuficiente para '{$product->name}'. Disponible: {$product->stock}, Solicitado: {$requestedQuantity}");
+                }
+            }
+
+            $stockBefore = $product->stock;
             $stockAfter = $stockBefore + $dto->quantity;
 
             $movementData = (array) $dto;

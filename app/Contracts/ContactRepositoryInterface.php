@@ -14,4 +14,5 @@ interface ContactRepositoryInterface
     public function create(array $data): Contact;
     public function update(int $id, array $data): Contact;
     public function delete(int $id): bool;
+    public function getAccountStatus(int $id): Contact;
 }

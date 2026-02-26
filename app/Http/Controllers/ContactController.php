@@ -19,14 +19,14 @@ class ContactController extends Controller
     }
 
     // Métodos extra útiles para tus combos de Vue
-    public function customers(): JsonResponse 
-    { 
-        return  response()->json($this->service->getCustomers()); 
+    public function customers(): JsonResponse
+    {
+        return  response()->json($this->service->getCustomers());
     }
 
-    public function suppliers(): JsonResponse 
-    { 
-        return response()->json($this->service->getSuppliers()); 
+    public function suppliers(): JsonResponse
+    {
+        return response()->json($this->service->getSuppliers());
     }
 
     public function store(ContactRequest $request): JsonResponse
@@ -49,5 +49,11 @@ class ContactController extends Controller
     public function delete(Contact $contact): JsonResponse
     {
         return response()->json(['success' => $this->service->deleteContact($contact->id)]);
+    }
+
+    public function getAccountStatus(Contact $contact): JsonResponse
+    {
+        $status = $this->service->getAccountStatus($contact->id);
+        return response()->json($status);
     }
 }

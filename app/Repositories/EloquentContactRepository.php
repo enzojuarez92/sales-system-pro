@@ -45,4 +45,10 @@ class EloquentContactRepository implements ContactRepositoryInterface
         $contact = Contact::findOrFail($id);
         return $contact->delete();
     }
+
+    public function getAccountStatus(int $id): Contact
+    {
+        return Contact::with(['invoices', 'payments'])
+            ->findOrFail($id);
+    }
 }

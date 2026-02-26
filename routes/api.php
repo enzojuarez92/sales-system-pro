@@ -64,6 +64,7 @@ Route::middleware(['auth:sanctum','check.cash'])->group(function () {
     Route::middleware('can:manage categories')->group(function () {
         Route::get('/contacts/customers', [ContactController::class, 'customers']);
         Route::get('/contacts/suppliers', [ContactController::class, 'suppliers']);
+        Route::get('/contacts/{contact}/accountStatus', [ContactController::class, 'getAccountStatus']);
         Route::post('/contacts', [ContactController::class, 'store']);
         Route::put('/contacts/{contact}', [ContactController::class, 'update']);
         Route::delete('/contacts/{contact}', [ContactController::class, 'delete']);

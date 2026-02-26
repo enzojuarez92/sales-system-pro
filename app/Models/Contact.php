@@ -36,8 +36,17 @@ class Contact extends Model
     // Accessor para ver "Juan Perez" o solo "Empresa S.A."
     protected function fullName(): Attribute
     {
-        return Attribute::get(fn () => 
+        return Attribute::get(
+            fn() =>
             trim("{$this->first_name} {$this->last_name}")
         );
+    }
+
+    public function getBalanceAttribute()
+    {
+        $totalInvoiced = $this->invoices()->sum('total_amount');
+        $totalPaid = $this->payments()->sum('amount');
+
+        return $totalInvoiced - $totalPaid;
     }
 }
